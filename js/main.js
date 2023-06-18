@@ -1,76 +1,55 @@
 
-let puedeIngresar = false
-let nombre = ""
-let apellido = ""
-let precioTotal = 0
-let catalogo
-let articulos = ""
-let estadoComprando = false
+// Funciones Productos
 
-function inicio(){
-    nombre = prompt("Nombre:");
-    console.log(nombre);
-    apellido = prompt("Apellido:");
-    console.log(apellido);
-    if (nombre !== null && apellido !== null){
-        alert("¡Bienvenido " + nombre + " " + apellido + "!\n" + "Toca Aceptar para ingresar a la tienda");
-        puedeIngresar = true;
-    }
+function guardarProductosLS() {
+  localStorage.setItem("productos", JSON.stringify(productos));
 }
 
-function tienda(){
-    catalogo = prompt("Tienda Apple\n" + 
-    "Tu usuario: " + nombre + " " + apellido + "\n"
-     + "Ingresa la letra del articulo que quieras agregar al carrito y toca Aceptar, puedes agregar multiples articulos, cuando termines de agregar escribe 'comprar'\n" 
-     + "A - iPhone 13 - Valor 800$ \n B - iPad - Valor 500$\n C - iPhone 12 - Valor 600$\n D - AirPods 2 - Valor 200$").toLowerCase();
+guardarProductosLS();
+
+function cargarProductosLS() {
+  return JSON.parse(localStorage.getItem("productos"));
 }
 
-function resumen(){
-    alert(nombre + ", este es el resumen de tu compra\n\n" + articulos + "\n TOTAL: " + precioTotal + "$");
-    estadoComprando = false;
-    alert("¡Gracias por comprar!")
+cargarProductosLS();
+
+// Funciones Carrito
+
+function guardarCarritoLS(carrito) {
+  localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
-inicio();
-
-if (puedeIngresar){
-    estadoComprando = true;
-    tienda();
-} else {
-    alert("¡Tus datos no son válidos!");
-    inicio();
+function cargarCarritoLS() {
+  return JSON.parse(localStorage.getItem("carrito")) || [];
 }
 
-do {
-    if (catalogo == "a"){
-        precioTotal = precioTotal + 800;
-        console.log("A - iPhone 13 - Valor 800$ ----- TOTAL: " + precioTotal + "$");
-        alert("¡'iPhone 13' agregado al carrito!");
-        articulos += "" + "iPhone 13 - 800$\n";
+// Agregar al Carrito
 
-    } else if (catalogo == "b"){
-        precioTotal = precioTotal + 500;
-        console.log("B - iPad - Valor 500$ ----- TOTAL: " + precioTotal + "$");
-        alert("¡'iPad' agregado al carrito!");
-        articulos += "" + "iPad - 500$\n";
+function agregarProducto(id) {
+  const productos = cargarProductosLS();
+  const carrito = cargarCarritoLS();
+  const producto = productos.find(item => item.id === id);
+  carrito.push(producto);
+  guardarCarritoLS(carrito);
+  console.log("Producto agregado");
+  location.reload()
+}
 
-    } else if (catalogo == "c"){
-        precioTotal = precioTotal + 600;
-        console.log("C - iPhone 12 - Valor 600$ ----- TOTAL: " + precioTotal + "$");
-        alert("¡'iPhone 12' agregado al carrito!");
-        articulos += "" + "iPhone 12 - 600$\n";
+// Mapeo index
 
-    } else if (catalogo == "d"){
-        precioTotal = precioTotal + 200;
-        console.log("D - AirPods 2 - Valor 200$ ----- TOTAL: " + precioTotal + "$");
-        alert("¡'AirPods 2' agregado al carrito!");
-        articulos += "" + "AirPods 2 - 200$\n";
+productos.forEach((producto) => {
+     document.getElementById("listaProductos").innerHTML += 
+     `<div class="card m-2 text-center shadow bg-white rounded">
+     <img class="card-img-top img-fluid img-thumbnail " src="${producto.imagen}" alt="Card image cap">
+     <div class="card-body">
+       <p class="card-text">${producto.nombre}</p>
+       <h5 class="card-title"> ${producto.precio} $</h5>
+     </div>
+     <div class="card-footer">
+     <button type="button" onclick="agregarProducto(${producto.id})" class="btn btn-outline-primary agregarcarrito">Agregar al carrito</button>
+     </div>
+   </div>`
+ });
 
-    } else if (catalogo == "comprar"){
-        resumen();
 
-    } else{
-        alert("Error. Letra incorrecta. Si queres finalizar tu compra escribe 'comprar' ")
-    }
-    tienda();
-} while (estadoComprando == true);
+document.getElementById("iconoCarrito").innerHTML += JSON.stringify(JSON.parse(localStorage.getItem("carrito")).length);
