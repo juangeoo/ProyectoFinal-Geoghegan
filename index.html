@@ -4,36 +4,92 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Road+Rage&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
-<body class="bg-light">
-    <div class="container-fluid bg-dark p-0">
-        <div class="container d-flex justify-content-between px-5 pt-5 pb-3 align-items-center">
-            <a href="index.html"><H1 class="text-white">Tienda</H1></a>
-            <!-- <form class="row">
-                <div class="col-auto">
-                <input type="text" class="form-control" id="inputPassword2" placeholder="Buscar producto...">
-                </div>
-                <div class="col-auto">
-                <button type="submit" class="btn btn-primary">Buscar</button>
-                </div>
-            </form>-->
-                
-                <button  onclick="location.href = 'carrito.html'" type="button" class="btn btn-outline-dark position-relative">
-                    <img src="./images/carrito.svg" alt="Carrito" style="width:40px">
-                    <span id="iconoCarrito" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    
-                    </span>
+
+<header>
+    <div class="m-0 w-100 d-flex bg-light align-items-center justify-content-center fixed-top border-bottom" style="height:75px">
+        <div class="w-100 d-flex justify-content-between px-5 align-items-center">
+            <div class="d-flex w-25 flex-row align-items-center justify-content-start" style="width:33.333vw">
+                <p class="text-black px-2 m-0 text-uppercase" style="font-weight:700;font-size:.8rem">
+                    Categorias
+                </p>
+                <p class="text-black px-2 m-0 text-uppercase" style="font-weight:700;font-size:.8rem">
+                    Noticias
+                </p>
+                <p class="text-black px-2 m-0 text-uppercase" style="font-weight:700;font-size:.8rem">
+                    Acerca de
+                </p>
+            </div> 
+            <a style="width:33.333vw" class="d-flex align-items-center justify-content-center" href="index.html">
+                <img src="./images/logo.png" alt="Carrito">
+            </a>    
+            <div class="d-flex flex-row align-items-center justify-content-end" style="width:33.333vw">
+
+               <!-- <button  onclick="location.href = 'carrito.html'" type="button" class="btn btn-outline-light position-relative">
+                    <img src="./images/carrito2.svg" alt="Carrito" style="width:32px">
+                    <span id="iconoCarrito" class="position-absolute top-0 start-75 translate-middle badge badge-light text-primary font-weight-bold"></span>
+                </button>-->
+
+                <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" class="btn btn-outline-light position-relative">
+                    <img src="./images/carrito2.svg" alt="Carrito" style="width:32px">
+                    <span id="iconoCarrito" class="position-absolute top-0 start-75 translate-middle badge badge-light text-primary font-weight-bold"></span>
                 </button>
+
+                <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+                    <div class="offcanvas-header border-bottom bg-light" style="height:75px">
+                      <h1 class="offcanvas-title" id="offcanvasExampleLabel">Mi carrito</h1>
+                      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <div class=" d-flex text-center justify-content-center align-items-center flex-wrap>">
+                            <div id="carritoVacioMensaje">
+                            </div>
+                        </div>
+                      <div id="listaCarrito">
+
+                      </div>
+                    </div>
+                    <div style="max-height: 60px; min-height: 60px" class="d-flex justify-content-center order-2 w-100 ">
+                        <div id="totalCarrito" class="align-self-center d-flex justify-content-between align-items-center">
+                        
+                        </div>
+                    </div>
+                  </div>
+            </div>              
         </div>
     </div>
+    <style>
+        .toast-position {
+            margin-top:5rem !important
+        }
 
-    <div id="listaProductos" class="container card-deck d-flex flex-wrap justify-content-center">
+        h1{
+            font-family: 'Road Rage', cursive;
+        }
+
+        button {
+            border:none !important;
+            font-family: 'Road Rage', cursive !important;
+            font-size:1.5rem !important;
+        }
+    </style>
+</header>
+
+<body class="bg-light">
+
+    <div id="listaProductos" class="card-deck d-flex flex-wrap justify-content-center" style="padding-top:7rem">
+        <h1>CARGANDO...</h1>
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="js/productos.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/carrito.js"></script>
+
 </body>
 </html>
